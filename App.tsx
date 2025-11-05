@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAthena } from './hooks/useAthena';
-import { Role, Area, TeamMember } from './types';
+import { Role, Area, TeamMember, Task } from './types';
 import { TEAM_MEMBERS } from './constants';
 import Header from './components/layout/Header';
 import DirectorDashboard from './components/dashboard/DirectorDashboard';
@@ -16,6 +16,7 @@ export default function App() {
     stats, 
     addTask, 
     updateTaskStatus, 
+    updateTask,
     getTrainingSuggestions,
     trainingSuggestions,
     isTrainingLoading,
@@ -97,6 +98,8 @@ export default function App() {
           <TaskMatrix 
             tasks={filteredExecutorTasks} 
             onStatusChange={handleStatusChange}
+            onUpdateTask={updateTask}
+            teamMembers={TEAM_MEMBERS.filter(m => m.role === Role.Executor)}
             activeFilter={activeAreaFilter}
             onFilterChange={setActiveAreaFilter}
             onRequestSharing={requestClientSharing}

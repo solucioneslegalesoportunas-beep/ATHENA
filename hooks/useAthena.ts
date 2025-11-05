@@ -115,15 +115,22 @@ export const useAthena = () => {
     });
   }, []);
 
-  const addTask = useCallback((task: Omit<Task, 'id' | 'status' | 'statusHistory' >) => {
+  const addTask = useCallback((task: Omit<Task, 'id' | 'status' | 'statusHistory' | 'createdAt'>) => {
     const newTask: Task = {
       ...task,
       id: (tasks.length + 1).toString(),
       status: 'IN_PROGRESS',
       statusHistory: ['IN_PROGRESS'],
+      createdAt: new Date().toISOString(),
     };
     setTasks(prev => [...prev, newTask]);
   }, [tasks]);
+
+  const updateTask = useCallback((taskId: string, updates: Partial<Omit<Task, 'id'>>) => {
+    setTasks(prev => prev.map(task => 
+      task.id === taskId ? { ...task, ...updates } : task
+    ));
+  }, []);
 
   const requestClientSharing = useCallback((taskId: string) => {
     setTasks(prev => prev.map(t => t.id === taskId ? { ...t, sharingApprovalStatus: 'PENDING' } : t));
@@ -229,6 +236,7 @@ export const useAthena = () => {
     stats, 
     addTask, 
     updateTaskStatus, 
+    updateTask,
     getTrainingSuggestions, 
     trainingSuggestions, 
     isTrainingLoading, 

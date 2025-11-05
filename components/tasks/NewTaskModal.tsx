@@ -9,7 +9,7 @@ import Spinner from '../shared/Spinner';
 interface NewTaskModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onAddTask: (task: Omit<Task, 'id' | 'status' | 'statusHistory'>) => void;
+  onAddTask: (task: Omit<Task, 'id' | 'status' | 'statusHistory' | 'createdAt'>) => void;
   onGenerateDetails: (prompt: string) => Promise<{ title: string; description: string }>;
   teamMembers: TeamMember[];
   directorName: string;

@@ -1,11 +1,13 @@
 import React from 'react';
-import { Task, Area, ExternalPlatformLink } from '../../types';
+import { Task, Area, ExternalPlatformLink, TeamMember } from '../../types';
 import TaskItem from './TaskItem';
 import { AREAS } from '../../constants';
 
 interface TaskMatrixProps {
   tasks: Task[];
   onStatusChange: (taskId: string, status: any, evidence?: string, tangibleResult?: string) => void;
+  onUpdateTask: (taskId: string, updates: Partial<Omit<Task, 'id'>>) => void;
+  teamMembers: TeamMember[];
   activeFilter: Area | 'All';
   onFilterChange: (filter: Area | 'All') => void;
   onRequestSharing: (taskId: string) => void;
@@ -16,6 +18,8 @@ interface TaskMatrixProps {
 const TaskMatrix: React.FC<TaskMatrixProps> = ({ 
   tasks, 
   onStatusChange, 
+  onUpdateTask,
+  teamMembers,
   activeFilter, 
   onFilterChange, 
   onRequestSharing, 
@@ -56,6 +60,8 @@ const TaskMatrix: React.FC<TaskMatrixProps> = ({
               key={task.id} 
               task={task} 
               onStatusChange={onStatusChange} 
+              onUpdateTask={onUpdateTask}
+              teamMembers={teamMembers}
               onRequestSharing={onRequestSharing}
               onAddExternalLink={onAddExternalLink}
               onAddClientSignature={onAddClientSignature}

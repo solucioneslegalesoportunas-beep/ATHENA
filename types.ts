@@ -57,11 +57,13 @@ export interface Task {
   area: Area;
   assigner: string;
   executor: string;
+  createdAt: string;
   dueDate: string;
   status: Status['id'];
   statusHistory: Status['id'][];
   evidenceLink?: string;
   tangibleResult?: string;
+  comments?: string;
   // Legal-specific fields
   sharingApprovalStatus?: 'PENDING' | 'APPROVED' | 'REJECTED';
   isClientShared?: boolean;
